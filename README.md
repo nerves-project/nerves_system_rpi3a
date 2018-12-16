@@ -3,6 +3,8 @@
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_rpi3a.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_rpi3a)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_rpi3a.svg "Hex version")](https://hex.pm/packages/nerves_system_rpi3a)
 
+## VERY NEW -> May have issues
+
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode.
 
