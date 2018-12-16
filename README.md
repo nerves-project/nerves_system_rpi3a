@@ -45,7 +45,7 @@ The most common way of using this Nerves System is create a project with `mix
 nerves.new` and to add this system as a dependency in your `mix.exs`:
 
 ```elixir
-  defp system("rpi3a"), do: [{:nerves_system_rpi3a, github: "fhunleth/nerves_system_rpi3a", runtime: false}]
+  defp system("rpi3a"), do: [{:nerves_system_rpi3a, github: "nerves-project/nerves_system_rpi3a", runtime: false}]
 ```
 
 If you add it like that, then make sure you to export `MIX_TARGET=rpi3a` when you
@@ -172,7 +172,7 @@ take versions of the repositories that have similar commit times.
 ## Installation
 
 If you're new to Nerves, check out the
-[nerves_init_gadget](https://github.com/fhunleth/nerves_init_gadget) project for
+[nerves_init_gadget](https://github.com/nerves-project/nerves_init_gadget) project for
 creating a starter project for the Raspberry Pi 3 Model A+. It will get you
 started with the basics like bringing up the virtual Ethernet interface,
 initializing the application partition, and enabling ssh-based firmware updates.
