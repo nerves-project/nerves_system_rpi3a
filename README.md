@@ -16,7 +16,7 @@ with the USB port running in gadget mode.
 | CPU                  | 1.4 GHz quad-core ARM Cortex-A53|
 | Memory               | 512 MB DRAM                     |
 | Storage              | MicroSD                         |
-| Linux kernel         | 4.14 w/ Raspberry Pi patches    |
+| Linux kernel         | 4.19 w/ Raspberry Pi patches    |
 | IEx terminal         | OTG USB serial port (`ttyGS0`). Can be changed to HDMI or UART. |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | No                              |
@@ -98,7 +98,7 @@ not work. To enable it, make a custom system using this one as a base and add
 the following to the `nerves_defconfig`:
 
 ```text
-BR2_LINUX_KERNEL_PATCH="http://cdn.kernel.org/pub/linux/kernel/projects/rt/4.14/patch-4.14.71-rt44.patch.xz"
+BR2_LINUX_KERNEL_PATCH="http://cdn.kernel.org/pub/linux/kernel/projects/rt/4.19/patch-4.19.25-rt16.patch.xz"
 ```
 
 Please verify the patch version since these instructions may be out-of-date.
