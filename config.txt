@@ -1,8 +1,7 @@
 # Default Nerves RPi 3 A+ config.txt
 #
 # It's possible to override this file by using a custom fwup.conf
-# configuration to pull in a replacement. For experimental changes,
-# it's easiest to edit the file directly on the MicroSD card.
+# configuration to pull in a replacement.
 #
 # Useful links:
 # https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
@@ -35,11 +34,6 @@ dtoverlay=dwc2
 # information across reboots in DRAM
 dtoverlay=ramoops
 
-# Enable the UART (/dev/ttyS0) on the GPIO pins.
+# Enable the UART (/dev/ttyAMA0) on the RPi3.
 enable_uart=1
-
-# If you'd like to swap UART connections so that the good UART (ttyAMA0)
-# goes to the GPIO connector rather than the Bluetooth module, then
-# enable the next line.
-# See https://www.raspberrypi.org/documentation/configuration/uart.md
-# dtoverlay=pi3-miniuart-bt
+dtoverlay=pi3-miniuart-bt
