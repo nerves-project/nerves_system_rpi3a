@@ -21,7 +21,7 @@ with the USB port running in gadget mode.
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | No                              |
 | PWM                  | Yes, but no Elixir support      |
-| UART                 | 1 available - `ttyS0`           |
+| UART                 | 1 available - `ttyAMA0`         |
 | Display              | HDMI or 7" RPi Touchscreen      |
 | Camera               | Yes - via rpi-userland          |
 | Ethernet             | No                              |
