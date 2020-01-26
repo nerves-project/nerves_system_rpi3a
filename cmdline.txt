@@ -1,13 +1,10 @@
-# NOTES:
-# 1. A console is available via the gadget USB port. If you have a USB A ->
-#    USB A cable, you can power and view console messages with one cable
-# 2. To output kernel messages via the UART pines, add "console=serial0,115200".
+# 1. Kernel messages are output via the UART pins.
 #    serial0 is magically replaced with ttyAMA0 or ttyS0 depending on the
 #    serial port configuration in config.txt.
-# 3. To output kernel messages over HDMI, add
+# 2. To output kernel messages over HDMI, add
 #    "console=tty1 fbcon=scrollback:1024k consoleblank=0"
-# 4. "dwc_otg.lpm_enable=0" is a default copied over from Raspbian
-# 5. If you're experimenting with kernel commandline parameters, it's easist
+#    https://www.raspberrypi.org/documentation/configuration/cmdline-txt.md
+# 3. If you're experimenting with kernel commandline parameters, it's easist
 #    to modify this file on the MicroSD card via your development computer. To
 #    make changes permanent, you'll need to override the fwup.conf.
-dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootwait
+root=/dev/mmcblk0p2 rootwait console=serial0,115200 quiet
