@@ -17,7 +17,7 @@ with the USB port running in gadget mode.
 | Memory               | 512 MB DRAM                     |
 | Storage              | MicroSD                         |
 | Linux kernel         | 4.19 w/ Raspberry Pi patches    |
-| IEx terminal         | OTG USB serial port (`ttyGS0`). Can be changed to HDMI or UART. |
+| IEx terminal         | UART `ttyAMA0` Can be changed to HDMI |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | No                              |
 | PWM                  | Yes, but no Elixir support      |

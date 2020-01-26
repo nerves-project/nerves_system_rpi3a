@@ -3,8 +3,8 @@
 ## v1.10.0
 
 This release updates Buildroot to 2019.11 with security and bug fix updates
-across Linux packages. Enables dnsd, udhcpd and ifconfig in the default 
-Busybox configuration to support `vintage_net` and `vintage_net_wizard`. 
+across Linux packages. Enables dnsd, udhcpd and ifconfig in the default
+Busybox configuration to support `vintage_net` and `vintage_net_wizard`.
 See the `nerves_system_br` notes for details.
 
 * Updated dependencies
