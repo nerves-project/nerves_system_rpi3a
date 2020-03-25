@@ -57,12 +57,6 @@ If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
 systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
 
-If you're new to Nerves, check out the
-[nerves_init_gadget](https://github.com/nerves-project/nerves_init_gadget)
-project for creating a starter project. Raspberry Pi Zero projects should
-work with this Nerves system except faster. Make sure to update the target
-dependency
-
 ## Supported WiFi devices
 
 The base image includes drivers for the onboard Raspberry Pi 3 A+ wifi module
