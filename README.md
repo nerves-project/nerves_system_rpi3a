@@ -42,20 +42,13 @@ To do this, you'll need a USB A to USB A connector like
 ## Using
 
 The most common way of using this Nerves System is create a project with `mix
-nerves.new` and to add this system as a dependency in your `mix.exs`:
-
-```elixir
-  defp system("rpi3a"), do: [{:nerves_system_rpi3a, github: "nerves-project/nerves_system_rpi3a", runtime: false}]
-```
-
-If you add it like that, then make sure you to export `MIX_TARGET=rpi3a` when you
-build. See the [Getting started
+nerves.new` and to export `MIX_TARGET=rpi3a`. See the [Getting started
 guide](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)
 for more information.
 
 If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
-systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
+systems](https://hexdocs.pm/nerves/customizing-systems.html).
 
 ## Supported WiFi devices
 
@@ -78,7 +71,7 @@ The general Raspberry Pi audio documentation mostly applies to Nerves. For
 example, to force audio out the HDMI port, run:
 
 ```elixir
-:os.cmd('amixer cset numid=3 2')
+cmd("amixer cset numid=3 2")
 ```
 
 Change the last argument to `amixer` to `1` to output to the stereo output jack.
