@@ -68,13 +68,6 @@ The Raspberry Pi has many options for audio output. This system supports the
 HDMI and stereo audio jack output. The Linux ALSA drivers are used for audio
 output.
 
-To try it out, run:
-
-```elixir
-:os.cmd('espeak -ven+f5 -k5 -w /tmp/out.wav Hello')
-:os.cmd('aplay -q /tmp/out.wav')
-```
-
 The general Raspberry Pi audio documentation mostly applies to Nerves. For
 example, to force audio out the HDMI port, run:
 
