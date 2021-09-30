@@ -25,8 +25,8 @@ with the USB port running in gadget mode.
 | Display              | HDMI or 7" RPi Touchscreen      |
 | Camera               | Yes - via rpi-userland          |
 | Ethernet             | No                              |
-| WiFi                 | Yes - Nerves.Network            |
-| Bluetooth            | Not supported yet               |
+| WiFi                 | Yes                             |
+| Bluetooth            | [See Bluetooth](#bluetooth)     |
 | Audio                | HDMI/Stereo out                 |
 
 ## Gadget mode!
@@ -61,6 +61,12 @@ systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-syst
 
 The base image includes drivers for the onboard Raspberry Pi 3 A+ wifi module
 (`brcmfmac` driver).
+
+## Bluetooth
+
+[BlueHeronTransportUART](https://github.com/blue-heron/blue_heron_transport_uart)
+supports bluetooth on the Pi 3A using `ttyS0`. The details are similar to the [RPi Zero W]
+(https://github.com/nerves-project/nerves_system_rpi0/issues/224#issuecomment-913799838).
 
 ## Audio
 
