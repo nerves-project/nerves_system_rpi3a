@@ -1,9 +1,7 @@
-# Raspberry Pi 3 Model A+ Gadget!
+# Raspberry Pi 3 A+ and Zero 2 W
 
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_rpi3a.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_rpi3a)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_rpi3a.svg "Hex version")](https://hex.pm/packages/nerves_system_rpi3a)
-
-## VERY NEW -> May have issues
 
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode.
@@ -27,9 +25,9 @@ with the USB port running in gadget mode.
 | Ethernet             | No                              |
 | WiFi                 | Yes                             |
 | Bluetooth            | [See Bluetooth](#bluetooth)     |
-| Audio                | HDMI/Stereo out                 |
+| Audio                | HDMI out                        |
 
-## Gadget mode!
+## Gadget mode on the 3A+!
 
 The Raspberry Pi 3 Model A+ is supported by the official
 [nerves_system_rpi3](https://github.com/nerves-project/nerves_system_rpi3), but
@@ -58,7 +56,8 @@ The base image includes drivers for the onboard Raspberry Pi 3 A+ wifi module
 ## Bluetooth
 
 [BlueHeronTransportUART](https://github.com/blue-heron/blue_heron_transport_uart)
-supports bluetooth on the Pi 3A using `ttyS0`. The details are similar to the [RPi Zero W]
+supports Bluetooth on the Raspberry Pi 3 A+ or Zero 2 W using `ttyS0`. The
+details are similar to the [RPi Zero W]
 (https://github.com/nerves-project/nerves_system_rpi0/issues/224#issuecomment-913799838).
 
 ## Audio
