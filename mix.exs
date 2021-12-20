@@ -74,7 +74,7 @@ defmodule NervesSystemRpi3a.MixProject do
 
   defp description do
     """
-    Nerves System - Raspberry Pi 3 A+
+    Nerves System - Raspberry Pi 3 A+ and Zero 2 W
     """
   end
 
@@ -91,7 +91,7 @@ defmodule NervesSystemRpi3a.MixProject do
   defp package do
     [
       files: package_files(),
-      licenses: ["Apache 2.0"],
+      licenses: ["Apache-2.0"],
       links: %{"GitHub" => @source_url}
     ]
   end
