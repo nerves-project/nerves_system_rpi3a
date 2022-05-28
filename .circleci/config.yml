@@ -8,6 +8,33 @@ version: 2.1
 orbs:
   build-tools: nerves-project/build-tools@0.2.2
 
+jobs:
+  install-test:
+    machine:
+      image: ubuntu-2204:2022.04.1
+    steps:
+      - checkout
+      - restore_cache:
+          key: deploy/test-{{ .Revision }}-{{ .Environment.CIRCLE_TAG }}
+      - run:
+          name: "System deps"
+          command: |
+            sudo apt update
+            sudo apt install -y wireguard linux-headers-$(uname -r) resolvconf
+      - run:
+          name: "Save wg0.conf"
+          command: |
+            sudo echo "$WIREGUARD_CONF" | base64 -d > ~/wg0.conf
+      - run:
+          name: "Test connection"
+          command: |
+            sudo wg-quick up ~/wg0.conf
+            echo $(dig +short aaa $NODE_NAME)
+      - run:
+          name: "Push firmware"
+          command: |
+            cat deploy/test/artifacts/${CIRCLE_SHA1}.fw | ssh -s $NODE_NAME fwup
+
 workflows:
   version: 2
   build_test_deploy:
@@ -35,6 +62,10 @@ workflows:
           context: org-global
           requires:
             - build-tools/build-system
+      - install-test:
+          context: org-global
+          requires:
+            - build-tools/build-test
       - build-tools/deploy-system:
           exec:
             <<: *exec

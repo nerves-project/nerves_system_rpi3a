@@ -1,54 +1,59 @@
-if Mix.env() == :test do
-  hash =
-    :os.cmd('git rev-parse HEAD')
-    |> to_string
-    |> String.trim()
-
-  System.put_env("NERVES_FW_VCS_IDENTIFIER", hash)
-end
-
 defmodule Test.MixProject do
   use Mix.Project
 
   @app :test
+  @version "0.1.0"
+
+  Mix.target(:target)
 
   def project do
     [
       app: @app,
-      name: "system-test",
-      version: "0.1.0",
-      elixir: "~> 1.9",
-      archives: [nerves_bootstrap: "~> 1.6"],
-      aliases: [loadconfig: [&bootstrap/1]],
+      version: @version,
+      elixir: "~> 1.11",
+      archives: [nerves_bootstrap: "~> 1.10"],
+      start_permanent: Mix.env() == :prod,
+      build_embedded: true,
       deps: deps(),
-      releases: [{@app, release()}]
+      releases: [{@app, release()}],
+      preferred_cli_target: [run: :host, test: :host]
     ]
   end
 
-  # Type `mix help compile.app` to learn about applications.
-  def application, do: []
-
-  defp bootstrap(args) do
-    Mix.target(:target)
-    Application.start(:nerves_bootstrap)
-    Mix.Task.run("loadconfig", args)
+  # Run "mix help compile.app" to learn about applications.
+  def application do
+    [
+      mod: {Test.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:nerves, "~> 1.7", runtime: false},
+      # TODO: Remove this when signing is no longer build-test step
+      {:nerves_hub_cli, "~> 0.12", runtime: false},
+      {:nerves_pack, "~> 0.7.0"},
+      {:nerves_runtime, "~> 0.11.6"},
+      # {:nerves_system_rpi3a, "~> 1.19.0", runtime: false},
       {:nerves_system_rpi3a, path: "../", runtime: false},
-      {:shoehorn, "~> 0.6"},
-      {:nerves_test_client, github: "mobileoverlord/nerves_test_client"}
+      {:ring_logger, "~> 0.8.3"},
+      {:shoehorn, "~> 0.9"},
+      {:toolshed, "~> 0.2"},
+      {:vintage_net_wireguard, "~> 0.1"}
     ]
   end
 
   def release do
     [
       overwrite: true,
+      # Erlang distribution is not started automatically.
+      # See https://hexdocs.pm/nerves_pack/readme.html#erlang-distribution
       cookie: "#{@app}_cookie",
       include_erts: &Nerves.Release.erts/0,
-      steps: [&Nerves.Release.init/1, :assemble, &ExUnitRelease.include/1]
+      steps: [&Nerves.Release.init/1, :assemble],
+      strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
     ]
   end
 end

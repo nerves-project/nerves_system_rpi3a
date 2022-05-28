@@ -1,19 +1,34 @@
 defmodule Test.Application do
+  @moduledoc false
+
   use Application
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
+  @wg_conf "/etc/wireguard/wg0.conf"
+
+  @impl true
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
+    configure_wireguard()
+    start_distribution()
 
-    # Define workers and child supervisors to be supervised
-    children = [
-      # worker(Test.Worker, [arg1, arg2, arg3]),
-    ]
+    Supervisor.start_link([], [strategy: :one_for_one, name: Test.Supervisor])
+  end
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Test.Supervisor]
-    Supervisor.start_link(children, opts)
+  defp configure_wireguard() do
+    if File.exists?(@wg_conf) do
+      config = VintageNetWireguard.ConfigFile.parse(@wg_conf)
+      VintageNet.configure("wg0", config)
+    end
+  end
+
+  defp start_distribution() do
+    :os.cmd('epmd -daemon')
+    {:ok, host} = :inet.gethostname()
+    node = Application.get_env(:test, :node_name, "nerves@#{host}.local")
+    Node.start(:"#{node}")
+    Node.set_cookie(:test_cookie)
+  end
+
+  def target() do
+    Application.get_env(:test, :target)
   end
 end

@@ -1,65 +1,32 @@
-# Raspberry Pi 3 A+ Test Suite
+# Test
 
-Executes ExUnit tests on target hardware and reports results to the
-[Nerves test server](https://nerves-test-server.herokuapp.com/nerves-project/nerves_system_rpi3a)
+**TODO: Add description**
 
-For more information on how to configure your own test farm please refer to the
-[Nerves test server source](https://github.com/mobileoverlord/nerves_test_server)
+## Targets
 
-## Setup
+Nerves applications produce images for hardware targets based on the
+`MIX_TARGET` environment variable. If `MIX_TARGET` is unset, `mix` builds an
+image that runs on the host (e.g., your laptop). This is useful for executing
+logic tests, running utilities, and debugging. Other targets are represented by
+a short name like `rpi3` that maps to a Nerves system image for that platform.
+All of this logic is in the generated `mix.exs` and may be customized. For more
+information about targets see:
 
-### Signing firmware
+https://hexdocs.pm/nerves/targets.html#content
 
-Firmware for the test farm is signed so it can be validated before being applied
-to the device. In order to sign trusted firmware, you will require the env variable
-`NERVES_FW_PRIV_KEY` and `NERVES_FW_PUB_KEY` to be set. Use `fwup` to configure
-your own test server keys
+## Getting Started
 
-```
-$ fwup -g
-```
+To start your Nerves app:
+  * `export MIX_TARGET=my_target` or prefix every command with
+    `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
+  * Install dependencies with `mix deps.get`
+  * Create firmware with `mix firmware`
+  * Burn to an SD card with `mix burn`
 
-The get the base64 values and export the variables
-```
-$ export NERVES_FW_PRIV_KEY=$(cat fwup-key.priv | base64)
-$ export NERVES_FW_PUB_KEY=$(cat fwup-key.pub | base64)
-```
+## Learn more
 
-### Configure the environment
-
-```
-$ export MIX_ENV=test
-$ export NERVES_TEST_SERVER=nerves-test-server.herokuapp.com
-$ export WEBSOCKET_PROTOCOL=wss
-```
-
-### Building
-
-Fetch the dependencies
-
-```
-$ mix deps.get
-```
-
-Create the firmware
-
-```
-$ mix firmware
-```
-
-Sign the firmware
-
-```
-$ fwup --sign --private-key $NERVES_FW_PRIV_KEY -i _build/test/nerves/images/test.fw -o _build/test/nerves/images/test.fw
-```
-
-Burn it to an SD card
-
-```
-$ mix firmware.burn
-```
-
-## Provisioning
-
-The Raspberry Pi 3 uses `eth0` to connect to the report server and requires a
-wired ethernet connection. The device should establish a connection to the network and join the test farm.
+  * Official docs: https://hexdocs.pm/nerves/getting-started.html
+  * Official website: https://nerves-project.org/
+  * Forum: https://elixirforum.com/c/nerves-forum
+  * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
+  * Source: https://github.com/nerves-project/nerves

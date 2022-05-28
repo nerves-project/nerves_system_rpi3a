@@ -1,52 +1,78 @@
-use Mix.Config
+import Config
 
-# Repository specific configuration
-platform = "rpi3a"
-arch = "arm"
+# Enable the Nerves integration with Mix
+Application.start(:nerves_bootstrap)
 
-app_part_devparth = "/dev/mmcblk0p3"
+config :test,
+  target: Mix.target(),
+  node_name: System.get_env("NODE_NAME", "nerves@nerves-rpi3a.local")
 
-# Environment specific configuration
-#  Nerves Project test farm configuration
-#  NERVES_TEST_SERVER = nerves-test-server.herokuapp.com
-#  WEBSOCKET_PROTOCOL = wss
+config :nerves,
+  erlinit: [hostname_pattern: "nerves-%s"],
+  firmware: [rootfs_overlay: "rootfs_overlay"],
+  source_date_epoch: "1653759283"
 
-test_server = System.get_env("NERVES_TEST_SERVER")
-websocket_protocol = System.get_env("WEBSOCKET_PROTOCOL") || "ws"
+config :logger, backends: [RingLogger]
 
-# Common configuration
+config :shoehorn, init: [:nerves_runtime, :nerves_pack, :nerves_ssh]
 
-# Configure shoehorn boot order.
-config :shoehorn,
-  app: :nerves_system_test,
-  init: [:nerves_runtime, :vintage_net]
+config :nerves_runtime,
+  kernel: [use_system_registry: false],
+  kv: [nerves_fw_vcs_identifier: System.get_env("NERVES_FW_VCS_IDENTIFIER")]
 
-config :nerves_hub,
-  public_keys: [
-    System.get_env("NERVES_HUB_FW_PUBLIC_KEY")
-  ]
+if encoded = System.get_env("WIREGUARD_DEVICE_CONF") do
+  File.mkdir_p!("rootfs_overlay/etc/wireguard")
+  File.write!("rootfs_overlay/etc/wireguard/wg0.conf", Base.decode64!(encoded))
+end
+
+config :nerves_ssh,
+  daemon_option_overrides: [key_cb: Test, pwdfun: &Test.pwdfun/4]
 
 config :vintage_net,
   regulatory_domain: "US",
+  additional_name_servers: [{127, 0, 0, 53}],
   config: [
-    {"eth0", %{type: VintageNet.Technology.Ethernet, ipv4: %{method: :dhcp}}},
-    {"wlan0", %{type: VintageNet.Technology.WiFi}}
+    {"usb0", %{type: VintageNetDirect}},
+    {"wlan0",     %{
+      ipv4: %{method: :dhcp},
+      type: VintageNetWiFi,
+      vintage_net_wifi: %{
+        networks: [%{key_mgmt: :wpa_psk, psk: "n3wh0us3", ssid: "kabellos"}]
+      }
+    }}
   ]
 
-# Configure the url for the connection to the test server phoenix channel socket.
-config :nerves_test_client, :socket,
-  url: "#{websocket_protocol}://#{test_server}/socket/websocket"
+config :mdns_lite,
+  # The `hosts` key specifies what hostnames mdns_lite advertises.  `:hostname`
+  # advertises the device's hostname.local. For the official Nerves systems, this
+  # is "nerves-<4 digit serial#>.local".  The `"nerves"` host causes mdns_lite
+  # to advertise "nerves.local" for convenience. If more than one Nerves device
+  # is on the network, it is recommended to delete "nerves" from the list
+  # because otherwise any of the devices may respond to nerves.local leading to
+  # unpredictable behavior.
 
-# The configuration stored here is duplicated from the project so it can be
-#  validated by nerves_test_client because the source is unavailable at runtime.
-config :nerves_runtime, :kv,
-  nerves_fw_application_part0_devpath: app_part_devparth,
-  nerves_fw_application_part0_fstype: "ext4",
-  nerves_fw_application_part0_target: "/root",
-  nerves_fw_architecture: arch,
-  nerves_fw_author: "The Nerves Team",
-  nerves_fw_description: Mix.Project.config()[:description],
-  nerves_fw_platform: platform,
-  nerves_fw_product: Mix.Project.config()[:app],
-  nerves_fw_vcs_identifier: System.get_env("NERVES_FW_VCS_IDENTIFIER"),
-  nerves_fw_version: Mix.Project.config()[:version]
+  hosts: [:hostname, "nerves-rpi3a"],
+  dns_bridge_enabled: true,
+  dns_bridge_ip: {127, 0, 0, 53},
+  dns_bridge_port: 53,
+  dns_bridge_recursive: true,
+  ttl: 120,
+
+  # Advertise the following services over mDNS.
+  services: [
+    %{
+      protocol: "ssh",
+      transport: "tcp",
+      port: 22
+    },
+    %{
+      protocol: "sftp-ssh",
+      transport: "tcp",
+      port: 22
+    },
+    %{
+      protocol: "epmd",
+      transport: "tcp",
+      port: 4369
+    }
+  ]
