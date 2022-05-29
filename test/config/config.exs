@@ -3,9 +3,7 @@ import Config
 # Enable the Nerves integration with Mix
 Application.start(:nerves_bootstrap)
 
-config :test,
-  target: Mix.target(),
-  node_name: System.get_env("NODE_NAME", "nerves@nerves-rpi3a.local")
+config :test, target: Mix.target()
 
 config :nerves,
   erlinit: [hostname_pattern: "nerves-%s"],
@@ -33,13 +31,14 @@ config :vintage_net,
   additional_name_servers: [{127, 0, 0, 53}],
   config: [
     {"usb0", %{type: VintageNetDirect}},
-    {"wlan0",     %{
-      ipv4: %{method: :dhcp},
-      type: VintageNetWiFi,
-      vintage_net_wifi: %{
-        networks: [%{key_mgmt: :wpa_psk, psk: "n3wh0us3", ssid: "kabellos"}]
-      }
-    }}
+    {"wlan0",
+     %{
+       ipv4: %{method: :dhcp},
+       type: VintageNetWiFi,
+       vintage_net_wifi: %{
+         networks: [%{key_mgmt: :wpa_psk, psk: "n3wh0us3", ssid: "kabellos"}]
+       }
+     }}
   ]
 
 config :mdns_lite,

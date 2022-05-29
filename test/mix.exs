@@ -32,8 +32,6 @@ defmodule Test.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.7", runtime: false},
-      # TODO: Remove this when signing is no longer build-test step
-      {:nerves_hub_cli, "~> 0.12", runtime: false},
       {:nerves_pack, "~> 0.7.0"},
       {:nerves_runtime, "~> 0.11.6"},
       # {:nerves_system_rpi3a, "~> 1.19.0", runtime: false},

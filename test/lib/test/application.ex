@@ -10,7 +10,11 @@ defmodule Test.Application do
     configure_wireguard()
     start_distribution()
 
-    Supervisor.start_link([], [strategy: :one_for_one, name: Test.Supervisor])
+    children = [
+      %{id: Agent, start: {Agent, :start_link, [fn -> :ready end, [name: TestStatus]]}}
+    ]
+
+    Supervisor.start_link(children, strategy: :one_for_one, name: Test.Supervisor)
   end
 
   defp configure_wireguard() do
@@ -22,9 +26,7 @@ defmodule Test.Application do
 
   defp start_distribution() do
     :os.cmd('epmd -daemon')
-    {:ok, host} = :inet.gethostname()
-    node = Application.get_env(:test, :node_name, "nerves@#{host}.local")
-    Node.start(:"#{node}")
+    Node.start(:"nerves@rpi3a._peer.internal")
     Node.set_cookie(:test_cookie)
   end
 
