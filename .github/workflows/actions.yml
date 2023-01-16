@@ -30,7 +30,7 @@ jobs:
         run: docker build .devcontainer/ --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t nerves_rpi3_64bit 
 
       - name: Build artifact
-        run: docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit mix deps.get && mix nerves.artifact --path $ARTIFACT_DIR
+        run: docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit 'mix deps.get && mix nerves.artifact --path $ARTIFACT_DIR'
       
       - name: List artifacts
         run: |
