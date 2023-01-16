@@ -13,6 +13,16 @@ jobs:
       - name: Checkout (GitHub)
         uses: actions/checkout@v2
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+            .nerves
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.2
         with:
