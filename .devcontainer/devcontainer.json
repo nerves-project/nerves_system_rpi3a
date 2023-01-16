@@ -1,0 +1,21 @@
+{
+	"name": "Nerves",
+	"build": {
+        "dockerfile": "Dockerfile"
+    },
+
+	"extensions": [
+		"jakebecker.elixir-ls"
+	],
+
+	// "features": {},
+
+	// "forwardPorts": [],
+
+	// "postCreateCommand": "uname -a",
+
+	// "customizations": {},
+
+	// "remoteUser": "root"
+
+}
