@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Repository specific configuration
-platform = "rpi3a"
+platform = "rpi3a64bit"
 arch = "arm"
 
 app_part_devparth = "/dev/mmcblk0p3"

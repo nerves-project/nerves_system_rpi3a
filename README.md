@@ -1,7 +1,4 @@
-# Raspberry Pi 3 A+ and Zero 2 W
-
-[![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_rpi3a.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_rpi3a)
-[![Hex version](https://img.shields.io/hexpm/v/nerves_system_rpi3a.svg "Hex version")](https://hex.pm/packages/nerves_system_rpi3a)
+# Raspberry Pi 3 A+ and Zero 2 W (64bit kernel)
 
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode.
@@ -40,7 +37,7 @@ To do this, you'll need a USB A to USB A connector like
 ## Using
 
 The most common way of using this Nerves System is create a project with `mix
-nerves.new` and to export `MIX_TARGET=rpi3a`. See the [Getting started
+nerves.new` and to export `MIX_TARGET=rpi3a_64bit`. See the [Getting started
 guide](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)
 for more information.
 

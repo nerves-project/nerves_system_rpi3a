@@ -37,7 +37,7 @@ defmodule Test.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nerves_system_rpi3a, path: "../", runtime: false},
+      {:nerves_system_rpi3a_64bit, path: "../", runtime: false},
       {:shoehorn, "~> 0.6"},
       {:nerves_test_client, github: "mobileoverlord/nerves_test_client"}
     ]
