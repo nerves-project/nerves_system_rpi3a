@@ -5,6 +5,9 @@ on: # rebuild any PRs and main branch changes
     branches:
       - main
 
+env:
+  ARTIFACT_DIR: .nerves/outup
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,5 +29,14 @@ jobs:
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.2
         with:
-          # Change this to be your CI task/script
-          runCmd: mix deps.get && mix nerves.artifact
+          runCmd: mix deps.get && mix nerves.artifact --path $ARTIFACT_DIR
+      
+      - name: List artifacts
+        run: |
+          ls -lah $ARTIFACT_DIR
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: nerves_system_rpi3a_64bit
+          path: .nerves/dl/nerves_system_rpi3a_64bit-portable*.tar.gz
+          if-no-files-found: error
