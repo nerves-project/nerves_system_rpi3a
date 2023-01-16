@@ -39,5 +39,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: nerves_system_rpi3a_64bit
-          path: .nerves/dl/nerves_system_rpi3a_64bit-portable*.tar.gz
-          if-no-files-found: error
+          path: $ARTIFACT_DIR/nerves_system_rpi3a_64bit-portable*.tar.gz
+          if-no-files-found: warn
