@@ -1,5 +1,5 @@
 name: 'build' 
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
@@ -30,14 +30,16 @@ jobs:
         run: docker build .devcontainer/ --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t nerves_rpi3_64bit 
 
       - name: Build artifact
-        run: docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c 'mix deps.get && mix nerves.artifact --path $ARTIFACT_DIR'
+        run: docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c 'mix deps.get && mix nerves.artifact --path /app/$ARTIFACT_DIR'
       
       - name: List artifacts
         run: |
-          ls -lah $ARTIFACT_DIR
+          ls -lah /app
+          ls -lah /app/.nerves
+          ls -lah /app/$ARTIFACT_DIR
 
       - uses: actions/upload-artifact@v3
         with:
           name: nerves_system_rpi3a_64bit
-          path: $ARTIFACT_DIR/nerves_system_rpi3a_64bit-portable*.tar.gz
+          path: /app/$ARTIFACT_DIR/nerves_system_rpi3a_64bit-portable*.tar.gz
           if-no-files-found: warn
