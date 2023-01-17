@@ -41,8 +41,15 @@ jobs:
           ls -lah .nerves
           ls -lah $ARTIFACT_DIR
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: nerves_system_rpi3a_64bit
           path: $ARTIFACT_DIR/nerves_system_rpi3a_64bit-portable-*.tar.gz
           if-no-files-found: warn
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: $ARTIFACT_DIR/*
