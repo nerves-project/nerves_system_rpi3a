@@ -33,12 +33,10 @@ jobs:
       - name: Build artifact
         run: |
           mkdir -p $ARTIFACT_DIR
-          docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c 'mix deps.get && mix nerves.artifact --path /app/$ARTIFACT_DIR'
+          docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c "mix deps.get && mix nerves.artifact --path /app/$ARTIFACT_DIR"
       
       - name: List artifacts
         run: |
-          ls -lah .nerves
-          ls -lah $ARTIFACT_DIR
           find . -name nerves_system_rpi3a_64bit*.tar.gz
 
       - name: Upload artifact
@@ -53,3 +51,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: $ARTIFACT_DIR/*
+
+      - name: Clean-up
+        run: |
+          rm $ARTIFACT_DIR/*
