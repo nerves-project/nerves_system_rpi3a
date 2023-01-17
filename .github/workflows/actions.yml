@@ -27,10 +27,13 @@ jobs:
             ${{ runner.os }}-mix-
 
       - name: Build the Docker image
-        run: docker build .devcontainer/ --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t nerves_rpi3_64bit 
+        run: |
+          docker build .devcontainer/ --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t nerves_rpi3_64bit 
 
       - name: Build artifact
-        run: docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c 'mix deps.get && mix nerves.artifact --path /app/$ARTIFACT_DIR'
+        run: |
+          mkdir -p /app/$ARTIFACT_DIR
+          docker run -v $(pwd):/app --workdir /app -t nerves_rpi3_64bit bash -c 'mix deps.get && mix nerves.artifact --path /app/$ARTIFACT_DIR'
       
       - name: List artifacts
         run: |
