@@ -31,7 +31,7 @@ jobs:
             deps
             _build
             .nerves
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock', '**/linux-5.15.defconfig', '**/nerves_defconfig') }}
           restore-keys: |
             ${{ runner.os }}-mix-
 
