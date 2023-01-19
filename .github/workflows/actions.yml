@@ -33,7 +33,7 @@ jobs:
             .nerves
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock', '**/linux-5.15.defconfig', '**/nerves_defconfig') }}
           restore-keys: |
-            ${{ runner.os }}-mix-
+            ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock', '**/linux-5.15.defconfig', '**/nerves_defconfig') }}
 
       - name: Build the Docker image
         run: |
