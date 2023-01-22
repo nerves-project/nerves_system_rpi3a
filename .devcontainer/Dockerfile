@@ -21,7 +21,7 @@ RUN wget https://github.com/fwup-home/fwup/releases/download/v${FWUP_VERSION}/fw
 ARG UID=1000
 ARG GID=1000
 
-RUN grep -o "^.*:.*:${UID}:.*" /etc/group || groupadd -g "${GID}" nerves
+RUN (grep -q "^.*:.*:"${GID}":.*" /etc/group || groupadd -g "${GID}" nerves)
 RUN useradd --create-home --no-log-init -u "${UID}" -g "${GID}" nerves -G sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
