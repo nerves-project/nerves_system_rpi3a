@@ -41,7 +41,7 @@ config :nerves_test_client, :socket,
 #  validated by nerves_test_client because the source is unavailable at runtime.
 config :nerves_runtime, :kv,
   nerves_fw_application_part0_devpath: app_part_devparth,
-  nerves_fw_application_part0_fstype: "f2fs",
+  nerves_fw_application_part0_fstype: "ext4",
   nerves_fw_application_part0_target: "/root",
   nerves_fw_architecture: arch,
   nerves_fw_author: "The Nerves Team",
