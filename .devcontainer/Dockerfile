@@ -31,6 +31,6 @@ USER nerves
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN mix archive.install hex nerves_bootstrap 1.10.5 --force
+RUN mix archive.install hex nerves_bootstrap 1.11.3 --force
 
 CMD ["/bin/bash"]
