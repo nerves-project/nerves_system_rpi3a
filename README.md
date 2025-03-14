@@ -1,7 +1,8 @@
 # Raspberry Pi 3 A+ and Zero 2 W
 
-[![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_rpi3a.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_rpi3a)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_rpi3a.svg "Hex version")](https://hex.pm/packages/nerves_system_rpi3a)
+[![CI](https://github.com/nerves-project/nerves_system_rpi3a/actions/workflows/ci.yml/badge.svg)](https://github.com/nerves-project/nerves_system_rpi3a/actions/workflows/ci.yml)
+[![REUSE status](https://api.reuse.software/badge/github.com/nerves-project/nerves_system_rpi3a)](https://api.reuse.software/info/github.com/nerves-project/nerves_system_rpi3a)
 
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode.
