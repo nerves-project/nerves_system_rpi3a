@@ -5,11 +5,11 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/nerves-project/nerves_system_rpi3a)](https://api.reuse.software/info/github.com/nerves-project/nerves_system_rpi3a)
 
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
-with the USB port running in gadget mode.
+with the USB port running in gadget mode and the Raspberry Pi zero 2 W.
 
 ![Raspberry Pi 3 A+ image](assets/images/rpi_a_plus.png)
 ![Raspberry Pi zero 2W image](assets/images/zero2-close-up.png)
-<br><sup>[Image credit](#rpi)</sup>
+<br><sup>[Image credits](#rpi)</sup>
 
 | Feature              | Description                     |
 | -------------------- | ------------------------------- |
@@ -35,9 +35,10 @@ The Raspberry Pi 3 Model A+ is supported by the official
 [nerves_system_rpi3](https://github.com/nerves-project/nerves_system_rpi3), but
 the USB port is configured to work as a host only. This Raspberry Pi can be
 connected directly to your computer via a USB cable like the Raspberry Pi Zeros.
-To do this, you'll need a USB A to USB A connector like
+To do this, you'll need either a USB A to USB A connector like
 [this](https://www.monoprice.com/product?p_id=5443) or
-[this](https://www.microcenter.com/product/431166/usb-a-to-a-high-speed-development-board-cable).
+[this](https://www.microcenter.com/product/431166/usb-a-to-a-high-speed-development-board-cable),
+or use a USB C connector at the PC side.
 
 ## Using
 
@@ -164,4 +165,4 @@ creating a starter project for the Raspberry Pi 3 Model A+. It will get you
 started with the basics like bringing up the virtual Ethernet interface,
 initializing the application partition, and enabling ssh-based firmware updates.
 
-<a id="rpi">Image credit</a> : This image is from [raspberrypi.org](https://www.raspberrypi.org/products/raspberry-pi-3-model-a-plus/).
+<a id="rpi">Image credits</a> : Board images from [raspberrypi.org](https://www.raspberrypi.org/products/).
