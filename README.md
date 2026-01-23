@@ -8,7 +8,7 @@ This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode and the Raspberry Pi zero 2 W.
 
 ![Raspberry Pi 3 A+ image](assets/images/rpi_a_plus.png)
-![Raspberry Pi zero 2W image](assets/images/zero2-close-up-half.png)
+![Raspberry Pi zero 2W image](assets/images/zero2-close-up.png)
 <br><sup>[Image credits](#rpi)</sup>
 
 | Feature              | Description                     |
