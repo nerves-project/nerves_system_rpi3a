@@ -163,4 +163,4 @@ creating a starter project for the Raspberry Pi 3 Model A+. It will get you
 started with the basics like bringing up the virtual Ethernet interface,
 initializing the application partition, and enabling ssh-based firmware updates.
 
-[Image credit](#rpi): This image is from [raspberrypi.org](https://www.raspberrypi.org/products/raspberry-pi-3-model-a-plus/).
+<a id="rpi">Image credit</a> : This image is from [raspberrypi.org](https://www.raspberrypi.org/products/raspberry-pi-3-model-a-plus/).
