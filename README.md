@@ -7,6 +7,9 @@
 This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode.
 
+*This is the `main` branch. If you are customizing a `v1.x` system, please see
+the `maint-v1.x` branch.*
+
 ![Raspberry Pi 3 A+ image](assets/images/rpi_a_plus.png)
 <br><sup>[Image credit](#rpi)</sup>
 
