@@ -339,7 +339,7 @@ This is a Buildroot version update that appears to mostly contain bug and
 security fixes. It should be a low risk upgrade from v1.23.2.
 
 * New features
-  * Support factory reset, preventing firmware reverts. See [Nerves.Runtime.FwupOps](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.FwupOps.html)
+  * Support factory reset, preventing firmware reverts. See [Nerves.Runtime.FwupOps](https://nerves-runtime.hexdocs.pm/Nerves.Runtime.FwupOps.html)
 
 * Updated dependencies
   * [nerves_system_br v1.24.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.24.0)
@@ -755,7 +755,7 @@ This release updates to [Buildroot
 
 * New features
   * Added support for updating the root filesystem using firmware patches.
-    See the [firmware patch docs](https://hexdocs.pm/nerves/experimental-features.html#content) for more information.
+    See the [firmware patch docs](https://nerves.hexdocs.pm/experimental-features.html#content) for more information.
 
 ## v1.12.2
 
@@ -847,7 +847,7 @@ on the GPIO header. The gadget driver has been changed to use g_ether. This
 provides a more stable network connection at the expense of the virtual serial
 port. Console access has been output to the UART. If you were using the UART
 to connect to peripherals, you will need to disable the console.
-See: https://hexdocs.pm/nerves/advanced-configuration.html#overwriting-files-in-the-boot-partition
+See: https://nerves.hexdocs.pm/advanced-configuration.html#overwriting-files-in-the-boot-partition
 for more information.
 
 * Enhancements
