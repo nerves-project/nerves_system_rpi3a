@@ -19,7 +19,7 @@ your Nerves system dependency.*
 | CPU                  | 1.4 GHz quad-core ARM Cortex-A53|
 | Memory               | 512 MB DRAM                     |
 | Storage              | MicroSD                         |
-| Linux kernel         | 6.12 w/ Raspberry Pi patches    |
+| Linux kernel         | 6.18 w/ Raspberry Pi patches    |
 | IEx terminal         | UART `ttyAMA0` Can be changed to HDMI |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | No                              |
