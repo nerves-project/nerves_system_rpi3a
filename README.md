@@ -8,7 +8,8 @@ This is the base Nerves System configuration for the Raspberry Pi 3 Model A+
 with the USB port running in gadget mode and the Raspberry Pi zero 2 W.
 
 *This is the `main` branch. If you are customizing a `v1.x` system, please see
-the `maint-v1.x` branch.*
+the `maint-v1.x` branch. See the "Upgrading to 2.0" section if you are upgrading
+your Nerves system dependency.*
 
 ![Raspberry Pi 3 A+ image](assets/images/rpi_a_plus.png)
 ![Raspberry Pi zero 2W image](assets/images/zero2-close-up.png)
@@ -19,7 +20,7 @@ the `maint-v1.x` branch.*
 | CPU                  | 1.4 GHz quad-core ARM Cortex-A53|
 | Memory               | 512 MB DRAM                     |
 | Storage              | MicroSD                         |
-| Linux kernel         | 6.12 w/ Raspberry Pi patches    |
+| Linux kernel         | 6.18 w/ Raspberry Pi patches    |
 | IEx terminal         | UART `ttyAMA0` Can be changed to HDMI |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | No                              |
@@ -47,12 +48,39 @@ or use a USB C connector at the PC side.
 
 The most common way of using this Nerves System is create a project with `mix
 nerves.new` and to export `MIX_TARGET=rpi3a`. See the [Getting started
-guide](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)
+guide](https://nerves.hexdocs.pm/getting-started.html#creating-a-new-nerves-app)
 for more information.
 
 If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
-systems](https://hexdocs.pm/nerves/customizing-systems.html).
+systems](https://nerves.hexdocs.pm/customizing-systems.html).
+
+## Upgrading to 2.0
+
+If your application depended on a pre-2.0 version of this Nerves system and you
+are upgrading, you'll need to start validating firmware after it boots the first
+time. If you don't do this, the Nerves MOTD will show that the firmware hasn't
+been validated when you log in. You can manually validate by calling
+`Nerves.Runtime.validate_firmware/0` or running the `fw_validate` helper at the IEx prompt.
+If you don't do this, the device will run the old firmware on the next reboot.
+
+A simple default way of validating the firmware can be enabled using
+Nerves.Runtime's startup guard feature as described in [Assisted firmware
+validation and automatic
+revert](https://nerves-runtime.hexdocs.pm/readme.html#assisted-firmware-validation-and-automatic-revert).
+Please follow the directions there for the needed config file update.
+
+If in doubt, use `mix nerves.new` to create a new project and compare what it
+creates to your project. If you haven't modified the Nerves-specific
+configuration parts of your project much, the firmware validation piece should
+be the main update.
+
+Please also review your use of `Nerves.Runtime.KV` in your application since the
+`nerves_fw_active` key no longer is used. Use `Nerves.Runtime.firmware_slots/0`
+to determine the active firmware slot. The `nerves_fw_active` key wasn't always
+accurate, so it was removed to avoid a misleading answer. The function call is
+reliable and also a generic way to determine slot status on all Nerves
+platforms.
 
 ## Supported WiFi devices
 
@@ -112,7 +140,7 @@ outside of any filesystem. Provisioning is an optional step and reasonable
 defaults are provided if this is missing.
 
 Provisioning information can be queried using the Nerves.Runtime KV store's
-[`Nerves.Runtime.KV.get/1`](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.KV.html#get/1)
+[`Nerves.Runtime.KV.get/1`](https://nerves-runtime.hexdocs.pm/Nerves.Runtime.KV.html#get/1)
 function.
 
 Keys used by this system are:

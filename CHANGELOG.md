@@ -12,14 +12,98 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
-## v2.0.0-rc.3
+## v2.2.1
+
+This is a security and bug fix release.
+
+* Package updates
+  * [nerves_system_br 1.35.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.35.3)
+  * [Buildroot 2026.08.1](https://lore.kernel.org/buildroot/buildroot-2026.08.1-announce-1792682049@buildroot.org/T/)
+
+## v2.2.0
+
+This is a major Buildroot update with security and feature updates throughout.
+
+It does not appear that custom systems require modification for this upgrade,
+but your system might use something not tested by the officially supported ones.
+
+* Package updates
+  * [nerves_system_br 1.35.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.35.2)
+  * [Buildroot 2026.08](https://lore.kernel.org/buildroot/878q5hf0yd.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 29.1.2](https://erlang.org/download/OTP-29.1.2.README.md)
+
+## v2.1.2
+
+This is a security and bug fix release.
 
 * Changes
-  * Deleted all use of `nerves_fw_active` since it was sometimes incorrect and
-    caused confusion
-  * Enabled multipath TCP support in the Linux kernel
+  * Allow Nerves 2 prereleases to be used
 
-## v2.0.0-rc.2
+* Package updates
+  * [nerves_system_br 1.34.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.34.4)
+
+## v2.1.1
+
+This is a security and bug fix release.
+
+* Changes
+  * Include rootfs.tar for use with Nerves 2.0 development builds (ignored by Nerves 1.x)
+
+* Package updates
+  * [nerves_system_br 1.34.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.34.1)
+
+## v2.1.0
+
+This is a major update with security and feature updates throughout.
+
+* Changes
+  * Support delta firmware updates for files in the boot partition
+  * Drop pigpio due to Buildroot removing it and it doesn't compile with GCC 15.3
+
+* Updated dependencies
+  * [nerves_system_br v1.34.0 release notes](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.34.0)
+  * GCC 15.3.0
+  * [Erlang/OTP 29.0.2](https://erlang.org/download/OTP-29.0.2.README.md)
+  * linux 6.18.33 (Raspberry Pi 1.20260521 tag)
+  * [Buildroot 2026.05](https://lore.kernel.org/buildroot/87fr2wpxhj.fsf@dell.be.48ers.dk/T/)
+
+## v2.0.4
+
+This is a security and bug fix release.
+
+* Package updates
+  * [nerves_system_br 1.33.9](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.9)
+    * [Erlang/OTP 28.5.0.1](https://erlang.org/download/OTP-28.5.0.1.README.md)
+
+## v2.0.3
+
+This is a security and bug fix release.
+
+* Changes
+  * Use https for the backup site
+
+* Package updates
+  * [nerves_system_br 1.33.7](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.7)
+    * [Erlang/OTP 28.5](https://erlang.org/download/OTP-28.5.README.md)
+    * [fwup 1.16.0](https://github.com/fwup-home/fwup/releases/tag/v1.16.0)
+## v2.0.2
+
+This is a security update.
+
+* Package updates
+  * [nerves_system_br 1.33.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.5)
+    * [Erlang/OTP 28.4.2](https://erlang.org/download/OTP-28.4.2.README.md)
+    * [Buildroot 2025.11.3](https://lore.kernel.org/buildroot/124c21a6-5810-495e-8b85-f3db41afa1a9@rnout.be/T/)
+## v2.0.1
+
+This is a security update.
+
+* Package updates
+  * [nerves_system_br 1.33.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.4)
+    * [Erlang/OTP 28.4.1](https://erlang.org/download/OTP-28.4.1.README.md)
+    * [Buildroot 2025.11.2](https://lore.kernel.org/buildroot/de9c890a-760a-4e6d-86b8-f8e5000a07ff@rnout.be/T/)
+
+## v2.0.0
 
 This is a major update of `nerves_system_rpi3a` that changes the MicroSD/eMMC
 layout in order to support automatic rollback of non-working firmware updates.
@@ -31,6 +115,17 @@ Previous releases assumed that firmware updates worked. This one requires that
 firmware images mark themselves as good using
 `Nerves.Runtime.validate_firmware/0`. See `Nerves.Runtime` for more information
 on this. Firmware not marked as good reverts back to the previous version.
+
+* Changes
+  * Fix camera support by enabling the unicam-legacy Linux device driver
+  * Enabled multipath TCP support in the Linux kernel
+  * Deleted all use of `nerves_fw_active` since it was sometimes incorrect and
+    caused confusion
+
+* Package updates
+  * [nerves_system_br 1.33.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.2)
+    * [Erlang/OTP 28.3.1](https://erlang.org/download/OTP-28.3.1.README.md)
+    * [Buildroot 2025.11.1](https://lore.kernel.org/buildroot/f6496994-b279-46f4-b554-7dbe2df92782@rnout.be/T/)
 
 ## v1.33.0
 
@@ -307,7 +402,7 @@ This is a Buildroot version update that appears to mostly contain bug and
 security fixes. It should be a low risk upgrade from v1.23.2.
 
 * New features
-  * Support factory reset, preventing firmware reverts. See [Nerves.Runtime.FwupOps](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.FwupOps.html)
+  * Support factory reset, preventing firmware reverts. See [Nerves.Runtime.FwupOps](https://nerves-runtime.hexdocs.pm/Nerves.Runtime.FwupOps.html)
 
 * Updated dependencies
   * [nerves_system_br v1.24.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.24.0)
@@ -723,7 +818,7 @@ This release updates to [Buildroot
 
 * New features
   * Added support for updating the root filesystem using firmware patches.
-    See the [firmware patch docs](https://hexdocs.pm/nerves/experimental-features.html#content) for more information.
+    See the [firmware patch docs](https://nerves.hexdocs.pm/experimental-features.html#content) for more information.
 
 ## v1.12.2
 
@@ -815,7 +910,7 @@ on the GPIO header. The gadget driver has been changed to use g_ether. This
 provides a more stable network connection at the expense of the virtual serial
 port. Console access has been output to the UART. If you were using the UART
 to connect to peripherals, you will need to disable the console.
-See: https://hexdocs.pm/nerves/advanced-configuration.html#overwriting-files-in-the-boot-partition
+See: https://nerves.hexdocs.pm/advanced-configuration.html#overwriting-files-in-the-boot-partition
 for more information.
 
 * Enhancements
@@ -984,4 +1079,3 @@ to work around this but it takes longer to load the gadget interface.
 See
 [nerves_system_rpi3/CHANGELOG.md](https://github.com/nerves-project/nerves_system_rpi3/blob/master/CHANGELOG.md) for
 history before this was forked off of `nerves_system_rpi3`
-

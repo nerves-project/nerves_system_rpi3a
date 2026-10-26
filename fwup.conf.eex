@@ -3,7 +3,7 @@
 # IMPORTANT:
 # Edit `fwup.conf.eex` and run `mix generate_fwup_conf` to generate fwup.conf.
 #
-require-fwup-version="1.0.0"
+require-fwup-version="1.12.0"
 
 include("${NERVES_SDK_IMAGES:-.}/fwup_include/fwup-common.conf")
 
@@ -128,7 +128,7 @@ task upgrade.old-a {
     require-uboot-variable(uboot-env, "b.nerves_fw_platform", "${NERVES_FW_PLATFORM}")
 
     on-init {
-        info("Upgrading partition A to tryboot layout. Don't interrupt update!")
+        info("Migrating boot partition A to the new tryboot (automatic rollback) layout. Do not power off or interrupt this update.")
 
         # Clear some firmware information just in case this update gets
         # interrupted midway. If this partition was bootable, it's not going to
@@ -193,7 +193,7 @@ task upgrade.old-b {
     require-uboot-variable(uboot-env, "a.nerves_fw_platform", "${NERVES_FW_PLATFORM}")
 
     on-init {
-        info("Upgrading partition B to tryboot layout. Don't interrupt update!")
+        info("Migrating boot partition B to the new tryboot (automatic rollback) layout. Do not power off or interrupt this update.")
 
         # Clear some firmware information just in case this update gets
         # interrupted midway. If this partition was bootable, it's not going to
@@ -286,7 +286,11 @@ task upgrade.a {
     # to the B partition, so an error or power failure during this part
     # won't hurt anything.
     on-resource cmdline-a.txt { fat_write(${BOOT_A_PART_OFFSET}, "cmdline.txt") }
-<%= for resource <- file_resources do %>    on-resource <%= resource.name %> { fat_write(${BOOT_A_PART_OFFSET}, "<%= resource.name %>") }
+<%= for resource <- file_resources do %>    on-resource <%= resource.name %> {
+        delta-source-fat-offset=${BOOT_B_PART_OFFSET}
+        delta-source-fat-path="<%= resource.name %>"
+        fat_write(${BOOT_A_PART_OFFSET}, "<%= resource.name %>")
+    }
 <% end %>
     on-resource rootfs.img {
         delta-source-raw-offset=${ROOTFS_B_PART_OFFSET}
@@ -352,7 +356,11 @@ task upgrade.b {
     # to the A partition, so an error or power failure during this part
     # won't hurt anything.
     on-resource cmdline-b.txt { fat_write(${BOOT_B_PART_OFFSET}, "cmdline.txt") }
-<%= for resource <- file_resources do %>    on-resource <%= resource.name %> { fat_write(${BOOT_B_PART_OFFSET}, "<%= resource.name %>") }
+<%= for resource <- file_resources do %>    on-resource <%= resource.name %> {
+        delta-source-fat-offset=${BOOT_A_PART_OFFSET}
+        delta-source-fat-path="<%= resource.name %>"
+        fat_write(${BOOT_B_PART_OFFSET}, "<%= resource.name %>")
+    }
 <% end %>
     on-resource rootfs.img {
         delta-source-raw-offset=${ROOTFS_A_PART_OFFSET}
